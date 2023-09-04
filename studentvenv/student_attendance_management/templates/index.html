@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>student</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    >
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+      crossorigin="anonymous"
+    ></script>
+
+</head>
+<body >
+    <div >
+        <h1>Lets see the student attendance</h1>
+    </div>
+    <div></div>
+    
+    <div id = 'mal_buttons'>
+        <button id = 'btn_student' type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalAddstudents">Add student</button>
+        <button id = 'btn_student' type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalUpdatestudent" >Update student</button>
+        <button id = 'btn_student' type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalDeletestudent" >Delete student</button>
+    </div>
+    <div id = 'mal_buttons'><button id = 'btn_student' type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModalUpdateattendace">Update Attendace</button></div>
+    <div class="modal fade" id="exampleModalAddstudents" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Add Student</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Name</label>
+                  <input type="text" class="form-control" id="studentname">
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Roll No.</label>
+                    <input type="number" class="form-control" id="studentrollno">
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Class</label>
+                    <input type="number" class="form-control" id="studentclass">
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Div</label>
+                    <input type="text" class="form-control" id="studentdiv" placeholder="A or B">
+                </div>
+                
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="addStudent()">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModalUpdatestudent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Update Student</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">old Name</label>
+                    <input type="text" class="form-control" id="updateoldstudentname">
+                  </div>
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">new Name</label>
+                    <input type="text" class="form-control" id="updatenewstudentname">
+                  </div>
+                  <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">new Roll No.</label>
+                      <input type="number" class="form-control" id="updatestudentrollno">
+                  </div>
+                  <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">new Class</label>
+                      <input type="number" class="form-control" id="updatestudentclass">
+                  </div>
+                  <div class="mb-3">
+                      <label for="recipient-name" class="col-form-label">new Div</label>
+                      <input type="text" class="form-control" id="updatestudentdiv">
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="updateStudent()">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModalDeletestudent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Student</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Name</label>
+                    <input type="text" class="form-control" id="deletestudentname">
+                  </div>
+                  
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModalUpdateattendace" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Update Attendace</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Student Name</label>
+                    <input type="text" class="form-control" id="attendstudentname">
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Present Days Per Month</label>
+                    <input type="number" class="form-control" id="attenddays">
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Month And Year</label>
+                    <input type="month" class="form-control" id="attendmonth">
+                </div>
+                  
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Update Attendance</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <script src="../static/js/jquery-3.7.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+      <script src="../static/js/student.js"></script>
+</body>
+</html>
