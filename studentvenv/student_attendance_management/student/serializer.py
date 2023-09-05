@@ -3,11 +3,11 @@ from .models import Student,Attendance_data
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
-        models = Student
-        feilds = '__all__'
+        model = Student
+        fields = '__all__'
 
 class StudentAttendanceSerializer(serializers.ModelSerializer):
     class Meta:
-        models = Attendance_data
-        feilds = '__all__'
+        model = Attendance_data
+        fields = '__all__'
         

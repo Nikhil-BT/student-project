@@ -23,6 +23,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('student/',include('student.urls')),
     path('',TemplateView.as_view(template_name = 'index.html')),
+    path('student-table',TemplateView.as_view(template_name = 'table.html')),
 ]
 urlpatterns += static(settings.STATIC_URL,document_root = settings.STATIC_ROOT)
 

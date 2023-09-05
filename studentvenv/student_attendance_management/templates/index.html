@@ -123,7 +123,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Send message</button>
+              <button type="button" class="btn btn-primary" onclick="deleteStudent()">delete</button>
             </div>
           </div>
         </div>
@@ -154,10 +154,13 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Update Attendance</button>
+              <button type="button" class="btn btn-primary" onclick="updateAttendance()">Update Attendance</button>
             </div>
           </div>
         </div>
+      </div>
+      <div id = 'tableheading'>
+        <h4 ><a type="button" class="btn btn-danger" href="http://127.0.0.1:8000/student-table">show students</a></h4>
       </div>
     
       <script src="../static/js/jquery-3.7.0.min.js"></script>
