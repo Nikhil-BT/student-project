@@ -10,6 +10,9 @@ class Student(models.Model):
     class_name = models.IntegerField(null=True)
     div = models.CharField(max_length = 50,null=True)
 
+    def __str__(self):
+        return self.name
+
 class Attendance_data(models.Model):
     days = models.IntegerField(null=True)
     month = models.IntegerField(null=True)

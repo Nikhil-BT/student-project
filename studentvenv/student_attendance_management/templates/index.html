@@ -142,8 +142,12 @@
                     <input type="text" class="form-control" id="attendstudentname">
                 </div>
                 <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Present Days Per Month</label>
-                    <input type="number" class="form-control" id="attenddays">
+                  <label for="recipient-name" class="col-form-label">Attendance</label>
+                  <select class="form-select" name="attendace" id="attendance">
+                    <option value=""></option>
+                    <option value="P">Present</option>
+                    <option value="AB">Absent</option>
+                  </select>
                 </div>
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Month And Year</label>
@@ -161,6 +165,9 @@
       </div>
       <div id = 'tableheading'>
         <h4 ><a type="button" class="btn btn-danger" href="http://127.0.0.1:8000/student-table">show students</a></h4>
+      </div>
+      <div id = 'percentage'>
+        <h4 ><a type="button" class="btn btn-light" href="http://127.0.0.1:8000/percentage-table">show student attendance percentage</a></h4>
       </div>
     
       <script src="../static/js/jquery-3.7.0.min.js"></script>

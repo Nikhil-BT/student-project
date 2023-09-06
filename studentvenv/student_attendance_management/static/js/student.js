@@ -94,7 +94,7 @@ function deleteStudent(){
 
 function updateAttendance(){
     let studentName = document.getElementById('attendstudentname').value
-    let studentAttendDays = Number(document.getElementById('attenddays').value)
+    let studentAttendDays = document.getElementById('attendance').value
     // console.log(typeof(studentAttendDays))
     let studentAttendMonth = document.getElementById('attendmonth').value
     let year = studentAttendMonth.slice(0,4)
@@ -102,11 +102,14 @@ function updateAttendance(){
     // console.log(studentAttendMonth)
     // console.log(month)
     // console.log(year)
+    if (studentAttendDays === null ){
+        alert('please fill the attendance data')
+    }
     if (studentName && studentAttendDays && studentAttendMonth){
-        if(studentAttendDays <= 26){
+        
             const data = {
                 'student_name' : studentName,
-                'student_attend_days' : studentAttendDays,
+                'student_attend' : studentAttendDays,
                 'month' : month,
                 'year' : year
             }
@@ -123,9 +126,7 @@ function updateAttendance(){
                 }
 
             })
-        }else{
-            alert('please enter valid present days per month')
-        }
+        
     
     }else{
         alert('please enter all the fields')
@@ -179,5 +180,93 @@ function removeStudentTable(){
 }
 
 function filterTable(){
+    let nameFilter = document.getElementById('Name').value
+    let rollNoFilter = document.getElementById('Roll_no').value
+    let classFilter = document.getElementById('classname').value
+    let divFilter = document.getElementById('Div').value
+
+    if(nameFilter === '' && rollNoFilter === '' && classFilter === '' && divFilter === '') {
+        alert('please select option to apply filter')
+        return
+    }
+    if(nameFilter !== '' && rollNoFilter !== '' && classFilter !== '' && divFilter !== '') {
+        alert('do not selest all the options')
+        return
+    }
+    if(nameFilter !== '' && rollNoFilter === '' && classFilter === '' && divFilter === '') {
+        sendFilterData(nameFilter,rollNoFilter,classFilter,divFilter)
+    }
+    if(nameFilter === '' && rollNoFilter !== '' && classFilter === '' && divFilter === '') {
+        sendFilterData(nameFilter,rollNoFilter,classFilter,divFilter)
+    }
+    if(nameFilter === '' && rollNoFilter === '' && classFilter !== '' || divFilter !== '') {
+        sendFilterData(nameFilter,rollNoFilter,classFilter,divFilter)
+    }
     
+    
+
+}
+
+function sendFilterData(nameFilter,rollNoFilter,classFilter,divFilter){
+    const data = {
+        'name' : nameFilter,
+        'roll_no' : rollNoFilter,
+        'class' : classFilter,
+        'div' : divFilter
+    }
+    $.ajax({
+        type : 'POST',
+        url : 'http://127.0.0.1:8000/student/filter',
+        data : JSON.stringify(data),
+        contentType : 'application/json',
+        success : (res) => {
+            console.log(res.message)
+            const students = res.students 
+            removeStudentTable()
+            showTable(students)
+        },
+        error : (err) => {
+            console.log(err)
+        }
+    })
+}
+
+function displayPercentageTable(){
+    const dTable = document.getElementById('percentagetable')
+    dTable.classList.contains('d-none') ? dTable.classList.remove("d-none") : ''
+    const vTable = document.getElementById('resetbutton')
+    vTable.classList.contains("d-none") ? vTable.classList.remove("d-none") : ''
+    const studentName = document.getElementById('percentagestudentname').value
+    const yearOfPercentage = document.getElementById('percentagestudentyear').value
+    // console.log(studentName)
+    // console.log(yearOfPercentage)
+    const data = {
+        'name' : studentName,
+        'year' : yearOfPercentage
+    }
+    $.ajax({
+        type : 'POST',
+        url : 'http://127.0.0.1:8000/student/percentagedata',
+        data : JSON.stringify(data),
+        contentType : 'application/json',
+        success : (res) => {
+            console.log(res.message)
+        },
+        error : (err) => {
+            console.log(err)
+        }
+
+    })
+
+    
+    
+
+}
+function vanishPercentageTable(){
+    const dTable = document.getElementById('percentagetable')
+    dTable.classList.contains('d-none') ? '' : dTable.classList.add("d-none")
+    const vTable = document.getElementById('resetbutton')
+    vTable.classList.contains("d-none") ? '' : vTable.classList.add("d-none")
+    
+
 }

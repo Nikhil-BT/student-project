@@ -24,3 +24,22 @@ h1{
     text-align:center;
     margin-right: 900px;
 }
+#percentage{
+    text-align:center;
+    margin-right: 750px;
+}
+#percentagestudentyear{
+    margin-left: 75px;
+}
+#percentageform{
+    margin-left : 40px
+}
+#showbutton{
+    margin-top : 20px
+}
+#resetbutton{
+    margin-top : 20px
+}
+/* #percentagetable{
+    display: none
+} */
