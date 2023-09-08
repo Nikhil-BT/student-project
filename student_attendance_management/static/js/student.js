@@ -230,9 +230,22 @@ function sendFilterData(nameFilter,rollNoFilter,classFilter,divFilter){
         }
     })
 }
-function sendPercTableData(){
+
+
+function displayPercentageTable(){
+    const dTable = document.getElementById('percentagetable')
+    removeData(dTable)
+    const dTableBody = document.getElementById('perctablebody')
+    // $("#dTableBody").empty()
+    // dTableBody.empty()
+    
+    dTable.classList.contains('d-none') ? dTable.classList.remove("d-none") : ''
+    const vTable = document.getElementById('resetbutton')
+    vTable.classList.contains("d-none") ? vTable.classList.remove("d-none") : ''
     const studentName = document.getElementById('percentagestudentname').value
     const yearOfPercentage = document.getElementById('percentagestudentyear').value
+    const percentageBottom = document.getElementById('percentagetablebottom')
+    const percemtageHeading = document.getElementById('percentagetableheading')
     const data = {
         'name' : studentName,
         'year' : yearOfPercentage
@@ -242,38 +255,83 @@ function sendPercTableData(){
         url : 'http://127.0.0.1:8000/student/percentagedata',
         data : JSON.stringify(data),
         contentType : 'application/json',
-        success : (res) => {
-            
+        success : res => {
+            // console.log(res.data)
+            const perctabledata = res.data
+            console.log(perctabledata)
+            // dTableBody.innerHTML = ''
+            // $("#dTableBody").empty()
+            let totalYearPercentage = 0
+            for (let i = 0 ; i< perctabledata.length ; i++){
+                let row = dTable.insertRow()
+                let cell0 = row.insertCell();
+                let cell1 = row.insertCell();
+                let cell2 = row.insertCell();
+                const f = (perctabledata[i].days/ 26)*100
+                const permonthpercentage = f.toFixed(2)
+                cell0.innerHTML = `${perctabledata[i].month}`
+                cell1.innerHTML = `${perctabledata[i].days}`
+                cell2.innerHTML = `${permonthpercentage}`
+                totalYearPercentage = totalYearPercentage + perctabledata[i].days
+            }
+            percemtageHeading.innerHTML = `attendace percentage of ${yearOfPercentage}`
+            percentageBottom.innerHTML = `student whole year attendace percentage is : ${(((totalYearPercentage/312)*100).toFixed(2))}`
+
+
         },
         error : (err) => {
             console.log(err)
         }
 
     })
-}
+    }
 
-function displayPercentageTable(){
-    const dTable = document.getElementById('percentagetable')
-    dTable.classList.contains('d-none') ? dTable.classList.remove("d-none") : ''
-    const vTable = document.getElementById('resetbutton')
-    vTable.classList.contains("d-none") ? vTable.classList.remove("d-none") : ''
-    sendPercTableData().then((res) => {
-        const percTableData = res.data
-        console.log(percTableData)
-    })
+
     
     // console.log(studentName)
     // console.log(yearOfPercentage)
-    
 
-    
-    
 
-}
 function vanishPercentageTable(){
     const dTable = document.getElementById('percentagetable')
     dTable.classList.contains('d-none') ? '' : dTable.classList.add("d-none")
     const vTable = document.getElementById('resetbutton')
     vTable.classList.contains("d-none") ? '' : vTable.classList.add("d-none")
+    const percentageBottom = document.getElementById('percentagetablebottom')
+    const percemtageHeading = document.getElementById('percentagetableheading')
+    percemtageHeading.innerHTML = ''
+    percentageBottom.innerHTML = ''
+    removeData(dTable)
+    
 }
 
+function removeData(dTable) {
+    // $("#dTableBody").empty();
+    // $("tbody").children().remove()
+    let rowCount = dTable.rows.length;
+        for (var i = rowCount - 1; i > 0; i--) {
+            dTable.deleteRow(i);
+        }
+  }
+
+function showTopAttendanceStudent(){
+    const firstName = document.getElementById('first')
+    const secondName = document.getElementById('second')
+  $.ajax({
+    type : "GET",
+    url : 'http://127.0.0.1:8000/student/gettopdata',
+    contentType : 'appliacation/json',
+    success : res => {
+        // console.log(res.attendance_data)
+        // console.log(res.student_data)
+        console.log(res.top_list)
+        const data = res.top_list
+        firstName.innerHTML = `1) ${data[0]}`
+        secondName.innerHTML = `2) ${data[1]}`
+        
+    },
+    error: (err) => {
+        console.log(err)
+    }
+  })
+  }

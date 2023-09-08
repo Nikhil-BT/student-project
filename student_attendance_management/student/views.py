@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from http.client import HTTPResponse
+from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import StudentSerializer,StudentAttendanceSerializer
@@ -93,26 +94,63 @@ def update_student_attendance(request):
             #     )
             student_id = Student.objects.get(name = data['student_name']).id
             print(id)
-            days = Attendance_data.objects.get(student = student_id,month = data['month'],year = data['year']).days
-            print('before =',days)
-            attendance = data['student_attend']
-            print(attendance)
-            if attendance == 'P':
-                Attendance_data.objects.filter(student = student_id).update(
-                    days =  days+1,
+            if Attendance_data.objects.filter(student = student_id).exists():
+                days = Attendance_data.objects.get(student = student_id,month = data['month'],year = data['year']).days
+                print('before =',days)
+                attendance = data['student_attend']
+                print(attendance)
+                if attendance == 'P':
+                    Attendance_data.objects.filter(student = student_id,month = data['month'],year = data['year']).update(
+                        days =  days+1,
 
-                )
-            elif attendance == "AB":
-                Attendance_data.objects.filter(student = student_id).update(
-                    days =  days-1,
+                    )
+                elif attendance == "AB":
+                    if days > 0:
+                        Attendance_data.objects.filter(student = student_id,month = data['month'],year = data['year']).update(
+                        days =  days-1,
 
+                        )
+                    else:
+                        pass
+                    
+                days = Attendance_data.objects.get(student = student_id,month = data['month'],year = data['year']).days
+                print("after =",days)
+                res = {
+                    'message' : 'data saved successfully'
+                }
+                return Response(res,200)
+            else:
+                Attendance_data.objects.create(
+                    days = 0,
+                    month = data['month'],
+                    year = data['year'],
+                    student = Student.objects.get(name = data['student_name'])
                 )
-            days = Attendance_data.objects.get(student = student_id,month = data['month'],year = data['year']).days
-            print("after =",days)
-            res = {
-                'message' : 'data saved successfully'
-            }
-            return Response(res,200)
+                days = Attendance_data.objects.get(student = student_id,month = data['month'],year = data['year']).days
+                print('before =',days)
+                attendance = data['student_attend']
+                print(attendance)
+                if attendance == 'P':
+                    Attendance_data.objects.filter(student = student_id,month = data['month'],year = data['year']).update(
+                        days =  days+1,
+
+                    )
+                elif attendance == "AB":
+                    if days > 0:
+                        Attendance_data.objects.filter(student = student_id,month = data['month'],year = data['year']).update(
+                        days =  days-1,
+
+                        )
+                    else:
+                        pass
+                days = Attendance_data.objects.get(student = student_id,month = data['month'],year = data['year']).days
+                print("after =",days)
+                res = {
+                    'message' : 'data saved successfully'
+                }
+                return Response(res,200)
+
+            
 
         else:
             res = {
@@ -233,6 +271,55 @@ def get_percentage_data(request):
         #     print(filterpercdata[i]['month'],'-',filterpercdata[i]['days'],"-",percpermonth)
         res = {
             'data' : filterpercdata
+        }
+        return Response(res,200)
+    except:
+        traceback.print_exc()
+
+
+@api_view(["GET"])
+def get_top_students_data(request):
+    try:
+        attendance_data = list(Attendance_data.objects.all())
+        print(attendance_data)
+        student_data = list(Student.objects.all())
+        print(student_data)
+        student_serializer = StudentSerializer(student_data,many = True)
+        all_student_data = student_serializer.data
+        attendance_serializer = StudentAttendanceSerializer(attendance_data,many = True)
+        all_attendance_data = attendance_serializer.data
+        print(all_attendance_data)
+        print(all_student_data)
+        days_sum = 0
+        top = {}
+        for i in range(len(all_student_data)):
+            student_id = all_student_data[i]['id']
+            print(student_id)
+            for j in range(len(all_attendance_data)):
+                if all_attendance_data[j]['student'] == student_id:
+                    days_sum = days_sum + all_attendance_data[j]['days']
+            top[student_id] = days_sum
+            days_sum = 0
+
+        print(top)
+        sorted_values = sorted(top.values(),reverse=True)
+        print(sorted_values)
+        sorted_top = {}
+        for i in sorted_values:
+            for j in top.keys():
+                if top[j] == i:
+                    sorted_top[j] = top[j]
+        print(sorted_top)
+        keys = sorted_top.keys()
+        top_student_names = []
+        for i in keys:
+            top_student_names.append(Student.objects.get(id = i).name)
+        print(top_student_names)
+          
+        res = {
+            # 'attendance_data' : all_attendance_data,
+            # 'student_data' : all_student_data
+            'top_list' : top_student_names
         }
         return Response(res,200)
     except:

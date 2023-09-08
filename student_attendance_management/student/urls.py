@@ -9,4 +9,5 @@ urlpatterns = [
     path('getstudentdata',views.get_student_data,name = 'get_student_data'),
     path('filter',views.filter_data,name = 'filter_data'),
     path('percentagedata',views.get_percentage_data,name = 'get_percentage_data'),
+    path('gettopdata',views.get_top_students_data,name = 'get_top_students_data'),
 ]

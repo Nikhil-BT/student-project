@@ -163,12 +163,43 @@
           </div>
         </div>
       </div>
-      <div id = 'tableheading'>
-        <h4 ><a type="button" class="btn btn-danger" href="http://127.0.0.1:8000/student-table">show students</a></h4>
+      <div id="threebutton">
+        <div id = 'tableheading'>
+          <h4 ><a type="button" class="btn btn-outline-dark" href="http://127.0.0.1:8000/student-table">show students</a></h4>
+        </div>
+        <div id = 'percentage'>
+          <h4 ><a type="button" class="btn btn-outline-dark" href="http://127.0.0.1:8000/percentage-table">show student attendance percentage</a></h4>
+        </div>
+        <div id ="topfive">
+          <h4>
+            <a type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModaltoptwo" onclick="showTopAttendanceStudent()">
+              Show Top Two Students
+            </a>
+          </h4>
+        </div>
       </div>
-      <div id = 'percentage'>
-        <h4 ><a type="button" class="btn btn-light" href="http://127.0.0.1:8000/percentage-table">show student attendance percentage</a></h4>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModaltoptwo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">TOP 2 Student</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h6 id = "first"></h6>
+              <h6 id="second"></h6>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+          </div>
+        </div>
       </div>
+      
+      
     
       <script src="../static/js/jquery-3.7.0.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

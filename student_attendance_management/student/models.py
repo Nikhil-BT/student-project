@@ -19,8 +19,8 @@ class Attendance_data(models.Model):
     year = models.IntegerField(null = True)
     student = models.ForeignKey(Student,null = True,on_delete = models.CASCADE)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.days,self.month,self.year
 
 
     
