@@ -182,7 +182,7 @@ def filter_data(request):
         # print(data)
         # name = Student.objects.filter().values_list('name')
         # print(name)
-        name_filter = roll_no_filter = class_filter = div_filter = Q()
+        class_filter = div_filter = Q()
         if 'name' in data.keys():
             if data['name'] != '':
                 if data['name'] == 'true':
